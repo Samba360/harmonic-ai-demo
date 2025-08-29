@@ -81,7 +81,7 @@ If you use this work in your research, please cite:
 ```bibtex
 @article{harmonicai2024,
   title={Harmonic AI: Solving Without Harming Through Multi-Objective Prudent Optimization},
-  author={[Your Name]},
+  author={Rosny MASSAMBA},
   journal={arXiv preprint arXiv:.},
   year={2024}
 }
