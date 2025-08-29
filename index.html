@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmonic AI - Démonstration Interactive</title>
+    <title>Harmonic AI - Interactive Demonstration</title>
     <style>
         * {
             margin: 0;
@@ -336,19 +336,19 @@
 </head>
 <body>
     <div class="header">
-        <h1>🤖 Harmonic AI - Démonstration Interactive</h1>
-        <p>"La solution à un problème ne doit pas devenir le problème d'une autre solution"</p>
+        <h1>🤖 Harmonic AI - Interactive Demonstration</h1>
+        <p>"The solution to one problem must not become the problem of another solution"</p>
     </div>
     
     <div class="main-container">
         <div class="simulation-area">
             <div class="canvas-container">
                 <div class="canvas-wrapper">
-                    <h3>IA Traditionnelle (Optimisation Directe)</h3>
+                    <h3>Traditional AI (Direct Optimization)</h3>
                     <canvas id="traditionalCanvas" width="400" height="400"></canvas>
                 </div>
                 <div class="canvas-wrapper">
-                    <h3>IA Harmonique (Optimisation Équilibrée)</h3>
+                    <h3>Harmonic AI (Balanced Optimization)</h3>
                     <canvas id="harmonicCanvas" width="400" height="400"></canvas>
                 </div>
             </div>
@@ -360,37 +360,37 @@
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #FF5722;"></div>
-                    <span>Objectif</span>
+                    <span>Goal</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: rgba(255, 0, 0, 0.3);"></div>
-                    <span>Zone Fragile</span>
+                    <span>Fragile Zone</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #2196F3;"></div>
-                    <span>Autre Agent</span>
+                    <span>Other Agent</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: rgba(255, 165, 0, 0.3);"></div>
-                    <span>Zone d'Interférence</span>
+                    <span>Interference Zone</span>
                 </div>
             </div>
             
             <div class="metrics">
                 <div class="metric-card metric-traditional">
-                    <h5>IA Traditionnelle</h5>
+                    <h5>Traditional AI</h5>
                     <div class="metric-value" id="tradScore">0</div>
                 </div>
                 <div class="metric-card metric-harmonic">
-                    <h5>IA Harmonique</h5>
+                    <h5>Harmonic AI</h5>
                     <div class="metric-value" id="harmScore">0</div>
                 </div>
                 <div class="metric-card metric-traditional">
-                    <h5>Dommages (Trad)</h5>
+                    <h5>Damage (Trad)</h5>
                     <div class="metric-value" id="tradDamage">0</div>
                 </div>
                 <div class="metric-card metric-harmonic">
-                    <h5>Dommages (Harm)</h5>
+                    <h5>Damage (Harm)</h5>
                     <div class="metric-value" id="harmDamage">0</div>
                 </div>
             </div>
@@ -400,11 +400,11 @@
         
         <div class="control-panel">
             <div class="control-group">
-                <h4>⚙️ Paramètres de l'IA Harmonique</h4>
+                <h4>⚙️ Harmonic AI Parameters</h4>
                 
                 <div class="slider-container">
                     <label>
-                        <span>Poids Objectif Principal</span>
+                        <span>Primary Objective Weight</span>
                         <span id="weightGoalValue">1.0</span>
                     </label>
                     <input type="range" id="weightGoal" min="0" max="2" step="0.1" value="1.0">
@@ -412,7 +412,7 @@
                 
                 <div class="slider-container">
                     <label>
-                        <span>Poids Évitement Dommages</span>
+                        <span>Damage Avoidance Weight</span>
                         <span id="weightSafetyValue">2.0</span>
                     </label>
                     <input type="range" id="weightSafety" min="0" max="5" step="0.1" value="2.0">
@@ -420,7 +420,7 @@
                 
                 <div class="slider-container">
                     <label>
-                        <span>Poids Non-Interférence</span>
+                        <span>Non-Interference Weight</span>
                         <span id="weightInterferenceValue">1.5</span>
                     </label>
                     <input type="range" id="weightInterference" min="0" max="3" step="0.1" value="1.5">
@@ -428,7 +428,7 @@
                 
                 <div class="slider-container">
                     <label>
-                        <span>Seuil de Prudence</span>
+                        <span>Prudence Threshold</span>
                         <span id="prudenceValue">0.7</span>
                     </label>
                     <input type="range" id="prudenceThreshold" min="0" max="1" step="0.05" value="0.7">
@@ -436,11 +436,11 @@
             </div>
             
             <div class="control-group">
-                <h4>🌍 Configuration Environnement</h4>
+                <h4>🌍 Environment Configuration</h4>
                 
                 <div class="slider-container">
                     <label>
-                        <span>Nombre de Zones Fragiles</span>
+                        <span>Number of Fragile Zones</span>
                         <span id="fragileZonesValue">3</span>
                     </label>
                     <input type="range" id="fragileZones" min="0" max="6" step="1" value="3">
@@ -448,7 +448,7 @@
                 
                 <div class="slider-container">
                     <label>
-                        <span>Nombre d'Autres Agents</span>
+                        <span>Number of Other Agents</span>
                         <span id="otherAgentsValue">2</span>
                     </label>
                     <input type="range" id="otherAgents" min="0" max="4" step="1" value="2">
@@ -456,7 +456,7 @@
                 
                 <div class="slider-container">
                     <label>
-                        <span>Vitesse Simulation</span>
+                        <span>Simulation Speed</span>
                         <span id="speedValue">50</span>
                     </label>
                     <input type="range" id="simulationSpeed" min="10" max="100" step="10" value="50">
@@ -465,7 +465,7 @@
             
             <div class="button-container">
                 <button class="btn-primary" onclick="startSimulation()">
-                    ▶️ Lancer
+                    ▶️ Start
                 </button>
                 <button class="btn-secondary" onclick="pauseSimulation()">
                     ⏸️ Pause
@@ -476,20 +476,20 @@
             </div>
             
             <div class="info-box">
-                <h4>💡 Comment ça marche ?</h4>
+                <h4>💡 How it Works</h4>
                 <p>
-                    <strong>Cliquez sur les canvas</strong> pour ajouter des obstacles dynamiquement.<br><br>
-                    <strong>IA Traditionnelle :</strong> Optimise uniquement pour atteindre l'objectif rapidement.<br><br>
-                    <strong>IA Harmonique :</strong> Équilibre multiple objectifs - atteindre le but, éviter les dommages, ne pas interférer avec les autres agents.<br><br>
-                    <strong>Ajustez les paramètres</strong> pour voir comment les poids affectent le comportement !
+                    <strong>Click on the canvases</strong> to add obstacles dynamically.<br><br>
+                    <strong>Traditional AI:</strong> Optimizes only to reach the goal quickly.<br><br>
+                    <strong>Harmonic AI:</strong> Balances multiple objectives - reaching the goal, avoiding damage, and not interfering with other agents.<br><br>
+                    <strong>Adjust the parameters</strong> to see how weights affect behavior!
                 </p>
             </div>
             
             <div class="control-group">
-                <h4>📊 Analyse en Temps Réel</h4>
+                <h4>📊 Real-Time Analysis</h4>
                 <div id="analysisPanel">
                     <p style="color: #666; font-size: 0.9em; line-height: 1.6;">
-                        En attente du lancement de la simulation...
+                        Waiting for simulation to start...
                     </p>
                 </div>
             </div>
@@ -497,26 +497,26 @@
     </div>
     
     <script>
-        // Configuration globale
+        // Global configuration
         const GRID_SIZE = 20;
         const CELL_SIZE = 20;
         
-        // État de la simulation
+        // Simulation state
         let simulationRunning = false;
         let simulationPaused = false;
         let animationFrame = null;
         
-        // Environnements
+        // Environments
         let traditionalEnv = null;
         let harmonicEnv = null;
         
-        // Canvas et contextes
+        // Canvas and contexts
         const tradCanvas = document.getElementById('traditionalCanvas');
         const harmCanvas = document.getElementById('harmonicCanvas');
         const tradCtx = tradCanvas.getContext('2d');
         const harmCtx = harmCanvas.getContext('2d');
         
-        // Classes pour l'environnement et les agents
+        // Classes for environment and agents
         class Environment {
             constructor(type = 'traditional') {
                 this.type = type;
@@ -577,15 +577,15 @@
                 
                 const oldPos = { ...this.agentPos };
                 
-                // Appliquer l'action
+                // Apply action
                 this.agentPos.x += action.dx;
                 this.agentPos.y += action.dy;
                 
-                // Limiter aux bordures
+                // Constrain to boundaries
                 this.agentPos.x = Math.max(0, Math.min(GRID_SIZE - 1, this.agentPos.x));
                 this.agentPos.y = Math.max(0, Math.min(GRID_SIZE - 1, this.agentPos.y));
                 
-                // Vérifier collision avec obstacles
+                // Check collision with obstacles
                 for (let obs of this.obstacles) {
                     if (Math.abs(this.agentPos.x - obs.x) < 0.5 && 
                         Math.abs(this.agentPos.y - obs.y) < 0.5) {
@@ -594,16 +594,16 @@
                     }
                 }
                 
-                // Enregistrer le chemin
+                // Record path
                 this.path.push({ ...this.agentPos });
                 
-                // Calculer les effets
+                // Calculate effects
                 this.calculateEffects(oldPos, this.agentPos, action);
                 
-                // Mettre à jour les autres agents
+                // Update other agents
                 this.updateOtherAgents();
                 
-                // Vérifier si objectif atteint
+                // Check if goal reached
                 const distToGoal = Math.sqrt(
                     Math.pow(this.agentPos.x - this.goalPos.x, 2) +
                     Math.pow(this.agentPos.y - this.goalPos.y, 2)
@@ -618,7 +618,7 @@
             }
             
             calculateEffects(oldPos, newPos, action) {
-                // Vérifier zones fragiles
+                // Check fragile zones
                 for (let zone of this.fragileZones) {
                     const dist = Math.sqrt(
                         Math.pow(newPos.x - zone.x, 2) +
@@ -632,7 +632,7 @@
                     }
                 }
                 
-                // Vérifier interférence avec autres agents
+                // Check interference with other agents
                 for (let other of this.otherAgents) {
                     const dist = Math.sqrt(
                         Math.pow(newPos.x - other.pos.x, 2) +
@@ -662,7 +662,7 @@
         
         class TraditionalAgent {
             selectAction(env) {
-                // Direction directe vers l'objectif
+                // Direct path to goal
                 const dx = env.goalPos.x - env.agentPos.x;
                 const dy = env.goalPos.y - env.agentPos.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -686,7 +686,7 @@
                 };
                 const prudence = parseFloat(document.getElementById('prudenceThreshold').value);
                 
-                // Générer actions candidates
+                // Generate candidate actions
                 const candidates = this.generateCandidates(env);
                 let bestAction = null;
                 let bestScore = -Infinity;
@@ -720,13 +720,13 @@
             }
             
             evaluateAction(env, action, weights, prudence) {
-                // Simuler l'action
+                // Simulate action
                 const newPos = {
                     x: env.agentPos.x + action.dx,
                     y: env.agentPos.y + action.dy
                 };
                 
-                // Score objectif
+                // Goal score
                 const oldDistToGoal = Math.sqrt(
                     Math.pow(env.goalPos.x - env.agentPos.x, 2) +
                     Math.pow(env.goalPos.y - env.agentPos.y, 2)
@@ -737,7 +737,7 @@
                 );
                 const goalScore = (oldDistToGoal - newDistToGoal) * weights.goal;
                 
-                // Score sécurité (éviter zones fragiles)
+                // Safety score (avoid fragile zones)
                 let safetyScore = 0;
                 for (let zone of env.fragileZones) {
                     const dist = Math.sqrt(
@@ -749,7 +749,7 @@
                     }
                 }
                 
-                // Score non-interférence
+                // Non-interference score
                 let interferenceScore = 0;
                 for (let other of env.otherAgents) {
                     const dist = Math.sqrt(
@@ -761,7 +761,7 @@
                     }
                 }
                 
-                // Score de prudence (privilégier actions moins risquées)
+                // Prudence score (favor less risky actions)
                 const actionMagnitude = Math.sqrt(action.dx * action.dx + action.dy * action.dy);
                 const prudenceScore = -actionMagnitude * prudence;
                 
@@ -773,11 +773,11 @@
         const traditionalAgent = new TraditionalAgent();
         const harmonicAgent = new HarmonicAgent();
         
-        // Fonctions de rendu
+        // Rendering functions
         function drawEnvironment(ctx, env, canvas) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Grille de fond
+            // Background grid
             ctx.strokeStyle = '#e0e0e0';
             ctx.lineWidth = 0.5;
             for (let i = 0; i <= GRID_SIZE; i++) {
@@ -792,7 +792,7 @@
                 ctx.stroke();
             }
             
-            // Zones fragiles
+            // Fragile zones
             for (let zone of env.fragileZones) {
                 ctx.fillStyle = zone.damaged ? 'rgba(139, 0, 0, 0.4)' : 'rgba(255, 0, 0, 0.3)';
                 ctx.strokeStyle = zone.damaged ? '#8B0000' : '#FF0000';
@@ -804,7 +804,7 @@
                 ctx.stroke();
             }
             
-            // Zones d'interférence des autres agents
+            // Interference zones of other agents
             ctx.fillStyle = 'rgba(255, 165, 0, 0.15)';
             for (let other of env.otherAgents) {
                 ctx.beginPath();
@@ -813,7 +813,7 @@
                 ctx.fill();
             }
             
-            // Autres agents
+            // Other agents
             ctx.fillStyle = '#2196F3';
             for (let other of env.otherAgents) {
                 ctx.beginPath();
@@ -821,7 +821,7 @@
                        6, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Leur objectif
+                // Their goal
                 ctx.strokeStyle = '#2196F3';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
@@ -830,14 +830,14 @@
                 ctx.stroke();
             }
             
-            // Obstacles ajoutés par l'utilisateur
+            // User-added obstacles
             ctx.fillStyle = '#795548';
             for (let obs of env.obstacles) {
                 ctx.fillRect((obs.x - 0.4) * CELL_SIZE, (obs.y - 0.4) * CELL_SIZE,
                            0.8 * CELL_SIZE, 0.8 * CELL_SIZE);
             }
             
-            // Chemin de l'agent
+            // Agent path
             if (env.path.length > 1) {
                 ctx.strokeStyle = env.type === 'traditional' ? '#ff6b6b' : '#4ecdc4';
                 ctx.lineWidth = 3;
@@ -849,7 +849,7 @@
                 ctx.stroke();
             }
             
-            // Objectif
+            // Goal
             ctx.fillStyle = '#FF5722';
             ctx.beginPath();
             ctx.arc(env.goalPos.x * CELL_SIZE, env.goalPos.y * CELL_SIZE, 
@@ -866,7 +866,7 @@
             ctx.fill();
             ctx.stroke();
             
-            // Indicateur si objectif atteint
+            // Goal reached indicator
             if (env.reachedGoal) {
                 ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
                 ctx.beginPath();
@@ -876,7 +876,7 @@
             }
         }
         
-        // Mise à jour des métriques
+        // Update metrics
         function updateMetrics() {
             if (traditionalEnv && harmonicEnv) {
                 // Scores
@@ -886,11 +886,11 @@
                 document.getElementById('tradScore').textContent = tradScore.toFixed(0);
                 document.getElementById('harmScore').textContent = harmScore.toFixed(0);
                 
-                // Dommages
+                // Damage
                 document.getElementById('tradDamage').textContent = traditionalEnv.totalDamage.toFixed(1);
                 document.getElementById('harmDamage').textContent = harmonicEnv.totalDamage.toFixed(1);
                 
-                // Analyse en temps réel
+                // Real-time analysis
                 const analysis = document.getElementById('analysisPanel');
                 let harmonyIndicator = '';
                 if (harmonicEnv.totalDamage < traditionalEnv.totalDamage * 0.5) {
@@ -903,14 +903,14 @@
                 
                 analysis.innerHTML = `
                     <div style="font-size: 0.9em; line-height: 1.8;">
-                        <strong>Étapes:</strong> Trad: ${traditionalEnv.steps} | Harm: ${harmonicEnv.steps}<br>
-                        <strong>Énergie:</strong> Trad: ${traditionalEnv.totalEnergy.toFixed(1)} | Harm: ${harmonicEnv.totalEnergy.toFixed(1)}<br>
-                        <strong>Interférences:</strong> Trad: ${traditionalEnv.totalInterference.toFixed(1)} | Harm: ${harmonicEnv.totalInterference.toFixed(1)}<br>
-                        <strong>Statut Harmonie:</strong> ${harmonyIndicator} ${
+                        <strong>Steps:</strong> Trad: ${traditionalEnv.steps} | Harm: ${harmonicEnv.steps}<br>
+                        <strong>Energy:</strong> Trad: ${traditionalEnv.totalEnergy.toFixed(1)} | Harm: ${harmonicEnv.totalEnergy.toFixed(1)}<br>
+                        <strong>Interference:</strong> Trad: ${traditionalEnv.totalInterference.toFixed(1)} | Harm: ${harmonicEnv.totalInterference.toFixed(1)}<br>
+                        <strong>Harmony Status:</strong> ${harmonyIndicator} ${
                             harmonicEnv.totalDamage < traditionalEnv.totalDamage * 0.5 ? 'Excellent' :
-                            harmonicEnv.totalDamage < traditionalEnv.totalDamage ? 'Bon' : 'À améliorer'
+                            harmonicEnv.totalDamage < traditionalEnv.totalDamage ? 'Good' : 'Needs Improvement'
                         }<br>
-                        <strong>Zones endommagées:</strong> ${
+                        <strong>Damaged Zones:</strong> ${
                             traditionalEnv.fragileZones.filter(z => z.damaged).length
                         } (Trad) vs ${
                             harmonicEnv.fragileZones.filter(z => z.damaged).length
@@ -920,11 +920,11 @@
             }
         }
         
-        // Boucle de simulation
+        // Simulation loop
         function simulationLoop() {
             if (!simulationRunning || simulationPaused) return;
             
-            // Un pas pour chaque agent
+            // One step for each agent
             if (!traditionalEnv.reachedGoal) {
                 const tradAction = traditionalAgent.selectAction(traditionalEnv);
                 traditionalEnv.step(tradAction);
@@ -935,45 +935,45 @@
                 harmonicEnv.step(harmAction);
             }
             
-            // Rendu
+            // Render
             drawEnvironment(tradCtx, traditionalEnv, tradCanvas);
             drawEnvironment(harmCtx, harmonicEnv, harmCanvas);
             
-            // Mise à jour métriques
+            // Update metrics
             updateMetrics();
             
-            // Vérifier si terminé
+            // Check if complete
             if (traditionalEnv.reachedGoal && harmonicEnv.reachedGoal) {
                 simulationRunning = false;
-                showStatus('Simulation terminée ! Comparez les résultats.', 'complete');
+                showStatus('Simulation complete! Compare the results.', 'complete');
                 return;
             }
             
-            // Continuer la boucle
+            // Continue loop
             const speed = 101 - parseInt(document.getElementById('simulationSpeed').value);
             setTimeout(() => {
                 animationFrame = requestAnimationFrame(simulationLoop);
             }, speed);
         }
         
-        // Contrôles
+        // Controls
         function startSimulation() {
             if (!simulationRunning) {
                 resetSimulation();
                 simulationRunning = true;
                 simulationPaused = false;
-                showStatus('Simulation en cours...', 'running');
+                showStatus('Simulation running...', 'running');
                 simulationLoop();
             } else if (simulationPaused) {
                 simulationPaused = false;
-                showStatus('Simulation reprise', 'running');
+                showStatus('Simulation resumed', 'running');
                 simulationLoop();
             }
         }
         
         function pauseSimulation() {
             simulationPaused = true;
-            showStatus('Simulation en pause', 'running');
+            showStatus('Simulation paused', 'running');
         }
         
         function resetSimulation() {
@@ -986,7 +986,7 @@
             traditionalEnv = new Environment('traditional');
             harmonicEnv = new Environment('harmonic');
             
-            // Synchroniser les environnements
+            // Synchronize environments
             harmonicEnv.fragileZones = JSON.parse(JSON.stringify(traditionalEnv.fragileZones));
             harmonicEnv.otherAgents = JSON.parse(JSON.stringify(traditionalEnv.otherAgents));
             
@@ -1004,7 +1004,7 @@
             statusEl.style.display = 'block';
         }
         
-        // Mise à jour des valeurs affichées
+        // Update displayed values
         document.querySelectorAll('input[type="range"]').forEach(slider => {
             slider.addEventListener('input', function() {
                 const valueSpan = document.getElementById(this.id + 'Value');
@@ -1014,7 +1014,7 @@
             });
         });
         
-        // Ajout d'obstacles par clic
+        // Add obstacles by clicking
         function addObstacle(canvas, env, event) {
             const rect = canvas.getBoundingClientRect();
             const x = (event.clientX - rect.left) / CELL_SIZE;
@@ -1032,7 +1032,7 @@
             if (harmonicEnv) addObstacle(harmCanvas, harmonicEnv, e);
         });
         
-        // Initialisation
+        // Initialize
         resetSimulation();
     </script>
 </body>
