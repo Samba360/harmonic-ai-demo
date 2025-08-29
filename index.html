@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmonic AI - Démonstration Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .main-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .simulation-area {
+            flex: 2;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .control-panel {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .canvas-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .canvas-wrapper {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .canvas-wrapper h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #fafafa;
+            width: 100%;
+            max-width: 400px;
+            cursor: crosshair;
+        }
+        
+        .controls {
+            margin-bottom: 25px;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .control-group h4 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .slider-container {
+            margin-bottom: 12px;
+        }
+        
+        .slider-container label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .slider-container input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s;
+        }
+        
+        .slider-container input[type="range"]:hover {
+            background: #ccc;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            background: #764ba2;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .metric-card h5 {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .metric-traditional {
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .metric-harmonic {
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .info-box h4 {
+            color: #1976D2;
+            margin-bottom: 8px;
+        }
+        
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .status-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .status-running {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .status-complete {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .harmonic-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Harmonic AI - Démonstration Interactive</h1>
+        <p>"La solution à un problème ne doit pas devenir le problème d'une autre solution"</p>
+    </div>
+    
+    <div class="main-container">
+        <div class="simulation-area">
+            <div class="canvas-container">
+                <div class="canvas-wrapper">
+                    <h3>IA Traditionnelle (Optimisation Directe)</h3>
+                    <canvas id="traditionalCanvas" width="400" height="400"></canvas>
+                </div>
+                <div class="canvas-wrapper">
+                    <h3>IA Harmonique (Optimisation Équilibrée)</h3>
+                    <canvas id="harmonicCanvas" width="400" height="400"></canvas>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4CAF50;"></div>
+                    <span>Agent</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FF5722;"></div>
+                    <span>Objectif</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgba(255, 0, 0, 0.3);"></div>
+                    <span>Zone Fragile</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2196F3;"></div>
+                    <span>Autre Agent</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgba(255, 165, 0, 0.3);"></div>
+                    <span>Zone d'Interférence</span>
+                </div>
+            </div>
+            
+            <div class="metrics">
+                <div class="metric-card metric-traditional">
+                    <h5>IA Traditionnelle</h5>
+                    <div class="metric-value" id="tradScore">0</div>
+                </div>
+                <div class="metric-card metric-harmonic">
+                    <h5>IA Harmonique</h5>
+                    <div class="metric-value" id="harmScore">0</div>
+                </div>
+                <div class="metric-card metric-traditional">
+                    <h5>Dommages (Trad)</h5>
+                    <div class="metric-value" id="tradDamage">0</div>
+                </div>
+                <div class="metric-card metric-harmonic">
+                    <h5>Dommages (Harm)</h5>
+                    <div class="metric-value" id="harmDamage">0</div>
+                </div>
+            </div>
+            
+            <div id="statusMessage" class="status-message" style="display: none;"></div>
+        </div>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <h4>⚙️ Paramètres de l'IA Harmonique</h4>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Poids Objectif Principal</span>
+                        <span id="weightGoalValue">1.0</span>
+                    </label>
+                    <input type="range" id="weightGoal" min="0" max="2" step="0.1" value="1.0">
+                </div>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Poids Évitement Dommages</span>
+                        <span id="weightSafetyValue">2.0</span>
+                    </label>
+                    <input type="range" id="weightSafety" min="0" max="5" step="0.1" value="2.0">
+                </div>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Poids Non-Interférence</span>
+                        <span id="weightInterferenceValue">1.5</span>
+                    </label>
+                    <input type="range" id="weightInterference" min="0" max="3" step="0.1" value="1.5">
+                </div>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Seuil de Prudence</span>
+                        <span id="prudenceValue">0.7</span>
+                    </label>
+                    <input type="range" id="prudenceThreshold" min="0" max="1" step="0.05" value="0.7">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h4>🌍 Configuration Environnement</h4>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Nombre de Zones Fragiles</span>
+                        <span id="fragileZonesValue">3</span>
+                    </label>
+                    <input type="range" id="fragileZones" min="0" max="6" step="1" value="3">
+                </div>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Nombre d'Autres Agents</span>
+                        <span id="otherAgentsValue">2</span>
+                    </label>
+                    <input type="range" id="otherAgents" min="0" max="4" step="1" value="2">
+                </div>
+                
+                <div class="slider-container">
+                    <label>
+                        <span>Vitesse Simulation</span>
+                        <span id="speedValue">50</span>
+                    </label>
+                    <input type="range" id="simulationSpeed" min="10" max="100" step="10" value="50">
+                </div>
+            </div>
+            
+            <div class="button-container">
+                <button class="btn-primary" onclick="startSimulation()">
+                    ▶️ Lancer
+                </button>
+                <button class="btn-secondary" onclick="pauseSimulation()">
+                    ⏸️ Pause
+                </button>
+                <button class="btn-danger" onclick="resetSimulation()">
+                    🔄 Reset
+                </button>
+            </div>
+            
+            <div class="info-box">
+                <h4>💡 Comment ça marche ?</h4>
+                <p>
+                    <strong>Cliquez sur les canvas</strong> pour ajouter des obstacles dynamiquement.<br><br>
+                    <strong>IA Traditionnelle :</strong> Optimise uniquement pour atteindre l'objectif rapidement.<br><br>
+                    <strong>IA Harmonique :</strong> Équilibre multiple objectifs - atteindre le but, éviter les dommages, ne pas interférer avec les autres agents.<br><br>
+                    <strong>Ajustez les paramètres</strong> pour voir comment les poids affectent le comportement !
+                </p>
+            </div>
+            
+            <div class="control-group">
+                <h4>📊 Analyse en Temps Réel</h4>
+                <div id="analysisPanel">
+                    <p style="color: #666; font-size: 0.9em; line-height: 1.6;">
+                        En attente du lancement de la simulation...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration globale
+        const GRID_SIZE = 20;
+        const CELL_SIZE = 20;
+        
+        // État de la simulation
+        let simulationRunning = false;
+        let simulationPaused = false;
+        let animationFrame = null;
+        
+        // Environnements
+        let traditionalEnv = null;
+        let harmonicEnv = null;
+        
+        // Canvas et contextes
+        const tradCanvas = document.getElementById('traditionalCanvas');
+        const harmCanvas = document.getElementById('harmonicCanvas');
+        const tradCtx = tradCanvas.getContext('2d');
+        const harmCtx = harmCanvas.getContext('2d');
+        
+        // Classes pour l'environnement et les agents
+        class Environment {
+            constructor(type = 'traditional') {
+                this.type = type;
+                this.reset();
+            }
+            
+            reset() {
+                this.agentPos = { x: 2, y: 2 };
+                this.goalPos = { x: 17, y: 17 };
+                this.path = [];
+                this.fragileZones = [];
+                this.otherAgents = [];
+                this.obstacles = [];
+                this.totalDamage = 0;
+                this.totalInterference = 0;
+                this.totalEnergy = 0;
+                this.steps = 0;
+                this.reachedGoal = false;
+                
+                this.generateFragileZones();
+                this.generateOtherAgents();
+            }
+            
+            generateFragileZones() {
+                const count = parseInt(document.getElementById('fragileZones').value);
+                this.fragileZones = [];
+                
+                for (let i = 0; i < count; i++) {
+                    this.fragileZones.push({
+                        x: 5 + Math.random() * 10,
+                        y: 5 + Math.random() * 10,
+                        radius: 1.5 + Math.random(),
+                        damaged: false
+                    });
+                }
+            }
+            
+            generateOtherAgents() {
+                const count = parseInt(document.getElementById('otherAgents').value);
+                this.otherAgents = [];
+                
+                for (let i = 0; i < count; i++) {
+                    const startX = Math.random() * 15 + 2;
+                    const startY = Math.random() * 15 + 2;
+                    this.otherAgents.push({
+                        pos: { x: startX, y: startY },
+                        goal: { 
+                            x: Math.random() * 15 + 2, 
+                            y: Math.random() * 15 + 2 
+                        },
+                        path: []
+                    });
+                }
+            }
+            
+            step(action) {
+                if (this.reachedGoal) return;
+                
+                const oldPos = { ...this.agentPos };
+                
+                // Appliquer l'action
+                this.agentPos.x += action.dx;
+                this.agentPos.y += action.dy;
+                
+                // Limiter aux bordures
+                this.agentPos.x = Math.max(0, Math.min(GRID_SIZE - 1, this.agentPos.x));
+                this.agentPos.y = Math.max(0, Math.min(GRID_SIZE - 1, this.agentPos.y));
+                
+                // Vérifier collision avec obstacles
+                for (let obs of this.obstacles) {
+                    if (Math.abs(this.agentPos.x - obs.x) < 0.5 && 
+                        Math.abs(this.agentPos.y - obs.y) < 0.5) {
+                        this.agentPos = oldPos;
+                        return;
+                    }
+                }
+                
+                // Enregistrer le chemin
+                this.path.push({ ...this.agentPos });
+                
+                // Calculer les effets
+                this.calculateEffects(oldPos, this.agentPos, action);
+                
+                // Mettre à jour les autres agents
+                this.updateOtherAgents();
+                
+                // Vérifier si objectif atteint
+                const distToGoal = Math.sqrt(
+                    Math.pow(this.agentPos.x - this.goalPos.x, 2) +
+                    Math.pow(this.agentPos.y - this.goalPos.y, 2)
+                );
+                
+                if (distToGoal < 1) {
+                    this.reachedGoal = true;
+                }
+                
+                this.steps++;
+                this.totalEnergy += Math.sqrt(action.dx * action.dx + action.dy * action.dy);
+            }
+            
+            calculateEffects(oldPos, newPos, action) {
+                // Vérifier zones fragiles
+                for (let zone of this.fragileZones) {
+                    const dist = Math.sqrt(
+                        Math.pow(newPos.x - zone.x, 2) +
+                        Math.pow(newPos.y - zone.y, 2)
+                    );
+                    
+                    if (dist < zone.radius) {
+                        const damage = (zone.radius - dist) * 10;
+                        this.totalDamage += damage;
+                        zone.damaged = true;
+                    }
+                }
+                
+                // Vérifier interférence avec autres agents
+                for (let other of this.otherAgents) {
+                    const dist = Math.sqrt(
+                        Math.pow(newPos.x - other.pos.x, 2) +
+                        Math.pow(newPos.y - other.pos.y, 2)
+                    );
+                    
+                    if (dist < 2) {
+                        this.totalInterference += (2 - dist);
+                    }
+                }
+            }
+            
+            updateOtherAgents() {
+                for (let agent of this.otherAgents) {
+                    const dx = agent.goal.x - agent.pos.x;
+                    const dy = agent.goal.y - agent.pos.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist > 0.5) {
+                        agent.pos.x += (dx / dist) * 0.2;
+                        agent.pos.y += (dy / dist) * 0.2;
+                        agent.path.push({ ...agent.pos });
+                    }
+                }
+            }
+        }
+        
+        class TraditionalAgent {
+            selectAction(env) {
+                // Direction directe vers l'objectif
+                const dx = env.goalPos.x - env.agentPos.x;
+                const dy = env.goalPos.y - env.agentPos.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist > 0) {
+                    return {
+                        dx: (dx / dist) * 0.8,
+                        dy: (dy / dist) * 0.8
+                    };
+                }
+                return { dx: 0, dy: 0 };
+            }
+        }
+        
+        class HarmonicAgent {
+            selectAction(env) {
+                const weights = {
+                    goal: parseFloat(document.getElementById('weightGoal').value),
+                    safety: parseFloat(document.getElementById('weightSafety').value),
+                    interference: parseFloat(document.getElementById('weightInterference').value)
+                };
+                const prudence = parseFloat(document.getElementById('prudenceThreshold').value);
+                
+                // Générer actions candidates
+                const candidates = this.generateCandidates(env);
+                let bestAction = null;
+                let bestScore = -Infinity;
+                
+                for (let action of candidates) {
+                    const score = this.evaluateAction(env, action, weights, prudence);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestAction = action;
+                    }
+                }
+                
+                return bestAction || { dx: 0, dy: 0 };
+            }
+            
+            generateCandidates(env) {
+                const actions = [];
+                const angles = [0, Math.PI/4, Math.PI/2, 3*Math.PI/4, Math.PI, 
+                               -3*Math.PI/4, -Math.PI/2, -Math.PI/4];
+                
+                for (let angle of angles) {
+                    for (let speed of [0.3, 0.5, 0.7]) {
+                        actions.push({
+                            dx: Math.cos(angle) * speed,
+                            dy: Math.sin(angle) * speed
+                        });
+                    }
+                }
+                
+                return actions;
+            }
+            
+            evaluateAction(env, action, weights, prudence) {
+                // Simuler l'action
+                const newPos = {
+                    x: env.agentPos.x + action.dx,
+                    y: env.agentPos.y + action.dy
+                };
+                
+                // Score objectif
+                const oldDistToGoal = Math.sqrt(
+                    Math.pow(env.goalPos.x - env.agentPos.x, 2) +
+                    Math.pow(env.goalPos.y - env.agentPos.y, 2)
+                );
+                const newDistToGoal = Math.sqrt(
+                    Math.pow(env.goalPos.x - newPos.x, 2) +
+                    Math.pow(env.goalPos.y - newPos.y, 2)
+                );
+                const goalScore = (oldDistToGoal - newDistToGoal) * weights.goal;
+                
+                // Score sécurité (éviter zones fragiles)
+                let safetyScore = 0;
+                for (let zone of env.fragileZones) {
+                    const dist = Math.sqrt(
+                        Math.pow(newPos.x - zone.x, 2) +
+                        Math.pow(newPos.y - zone.y, 2)
+                    );
+                    if (dist < zone.radius) {
+                        safetyScore -= (zone.radius - dist) * weights.safety * 10;
+                    }
+                }
+                
+                // Score non-interférence
+                let interferenceScore = 0;
+                for (let other of env.otherAgents) {
+                    const dist = Math.sqrt(
+                        Math.pow(newPos.x - other.pos.x, 2) +
+                        Math.pow(newPos.y - other.pos.y, 2)
+                    );
+                    if (dist < 2) {
+                        interferenceScore -= (2 - dist) * weights.interference;
+                    }
+                }
+                
+                // Score de prudence (privilégier actions moins risquées)
+                const actionMagnitude = Math.sqrt(action.dx * action.dx + action.dy * action.dy);
+                const prudenceScore = -actionMagnitude * prudence;
+                
+                return goalScore + safetyScore + interferenceScore + prudenceScore;
+            }
+        }
+        
+        // Agents
+        const traditionalAgent = new TraditionalAgent();
+        const harmonicAgent = new HarmonicAgent();
+        
+        // Fonctions de rendu
+        function drawEnvironment(ctx, env, canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Grille de fond
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= GRID_SIZE; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * CELL_SIZE, 0);
+                ctx.lineTo(i * CELL_SIZE, canvas.height);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(0, i * CELL_SIZE);
+                ctx.lineTo(canvas.width, i * CELL_SIZE);
+                ctx.stroke();
+            }
+            
+            // Zones fragiles
+            for (let zone of env.fragileZones) {
+                ctx.fillStyle = zone.damaged ? 'rgba(139, 0, 0, 0.4)' : 'rgba(255, 0, 0, 0.3)';
+                ctx.strokeStyle = zone.damaged ? '#8B0000' : '#FF0000';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(zone.x * CELL_SIZE, zone.y * CELL_SIZE, 
+                       zone.radius * CELL_SIZE, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+            
+            // Zones d'interférence des autres agents
+            ctx.fillStyle = 'rgba(255, 165, 0, 0.15)';
+            for (let other of env.otherAgents) {
+                ctx.beginPath();
+                ctx.arc(other.pos.x * CELL_SIZE, other.pos.y * CELL_SIZE, 
+                       2 * CELL_SIZE, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Autres agents
+            ctx.fillStyle = '#2196F3';
+            for (let other of env.otherAgents) {
+                ctx.beginPath();
+                ctx.arc(other.pos.x * CELL_SIZE, other.pos.y * CELL_SIZE, 
+                       6, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Leur objectif
+                ctx.strokeStyle = '#2196F3';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(other.goal.x * CELL_SIZE, other.goal.y * CELL_SIZE, 
+                       4, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Obstacles ajoutés par l'utilisateur
+            ctx.fillStyle = '#795548';
+            for (let obs of env.obstacles) {
+                ctx.fillRect((obs.x - 0.4) * CELL_SIZE, (obs.y - 0.4) * CELL_SIZE,
+                           0.8 * CELL_SIZE, 0.8 * CELL_SIZE);
+            }
+            
+            // Chemin de l'agent
+            if (env.path.length > 1) {
+                ctx.strokeStyle = env.type === 'traditional' ? '#ff6b6b' : '#4ecdc4';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(env.path[0].x * CELL_SIZE, env.path[0].y * CELL_SIZE);
+                for (let i = 1; i < env.path.length; i++) {
+                    ctx.lineTo(env.path[i].x * CELL_SIZE, env.path[i].y * CELL_SIZE);
+                }
+                ctx.stroke();
+            }
+            
+            // Objectif
+            ctx.fillStyle = '#FF5722';
+            ctx.beginPath();
+            ctx.arc(env.goalPos.x * CELL_SIZE, env.goalPos.y * CELL_SIZE, 
+                   10, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Agent
+            ctx.fillStyle = '#4CAF50';
+            ctx.strokeStyle = '#2E7D32';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(env.agentPos.x * CELL_SIZE, env.agentPos.y * CELL_SIZE, 
+                   8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Indicateur si objectif atteint
+            if (env.reachedGoal) {
+                ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
+                ctx.beginPath();
+                ctx.arc(env.goalPos.x * CELL_SIZE, env.goalPos.y * CELL_SIZE, 
+                       20, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Mise à jour des métriques
+        function updateMetrics() {
+            if (traditionalEnv && harmonicEnv) {
+                // Scores
+                const tradScore = Math.max(0, 100 - traditionalEnv.totalDamage - traditionalEnv.totalInterference * 5);
+                const harmScore = Math.max(0, 100 - harmonicEnv.totalDamage - harmonicEnv.totalInterference * 5);
+                
+                document.getElementById('tradScore').textContent = tradScore.toFixed(0);
+                document.getElementById('harmScore').textContent = harmScore.toFixed(0);
+                
+                // Dommages
+                document.getElementById('tradDamage').textContent = traditionalEnv.totalDamage.toFixed(1);
+                document.getElementById('harmDamage').textContent = harmonicEnv.totalDamage.toFixed(1);
+                
+                // Analyse en temps réel
+                const analysis = document.getElementById('analysisPanel');
+                let harmonyIndicator = '';
+                if (harmonicEnv.totalDamage < traditionalEnv.totalDamage * 0.5) {
+                    harmonyIndicator = '<span class="harmonic-indicator" style="background: #4CAF50;"></span>';
+                } else if (harmonicEnv.totalDamage < traditionalEnv.totalDamage) {
+                    harmonyIndicator = '<span class="harmonic-indicator" style="background: #FFC107;"></span>';
+                } else {
+                    harmonyIndicator = '<span class="harmonic-indicator" style="background: #F44336;"></span>';
+                }
+                
+                analysis.innerHTML = `
+                    <div style="font-size: 0.9em; line-height: 1.8;">
+                        <strong>Étapes:</strong> Trad: ${traditionalEnv.steps} | Harm: ${harmonicEnv.steps}<br>
+                        <strong>Énergie:</strong> Trad: ${traditionalEnv.totalEnergy.toFixed(1)} | Harm: ${harmonicEnv.totalEnergy.toFixed(1)}<br>
+                        <strong>Interférences:</strong> Trad: ${traditionalEnv.totalInterference.toFixed(1)} | Harm: ${harmonicEnv.totalInterference.toFixed(1)}<br>
+                        <strong>Statut Harmonie:</strong> ${harmonyIndicator} ${
+                            harmonicEnv.totalDamage < traditionalEnv.totalDamage * 0.5 ? 'Excellent' :
+                            harmonicEnv.totalDamage < traditionalEnv.totalDamage ? 'Bon' : 'À améliorer'
+                        }<br>
+                        <strong>Zones endommagées:</strong> ${
+                            traditionalEnv.fragileZones.filter(z => z.damaged).length
+                        } (Trad) vs ${
+                            harmonicEnv.fragileZones.filter(z => z.damaged).length
+                        } (Harm)
+                    </div>
+                `;
+            }
+        }
+        
+        // Boucle de simulation
+        function simulationLoop() {
+            if (!simulationRunning || simulationPaused) return;
+            
+            // Un pas pour chaque agent
+            if (!traditionalEnv.reachedGoal) {
+                const tradAction = traditionalAgent.selectAction(traditionalEnv);
+                traditionalEnv.step(tradAction);
+            }
+            
+            if (!harmonicEnv.reachedGoal) {
+                const harmAction = harmonicAgent.selectAction(harmonicEnv);
+                harmonicEnv.step(harmAction);
+            }
+            
+            // Rendu
+            drawEnvironment(tradCtx, traditionalEnv, tradCanvas);
+            drawEnvironment(harmCtx, harmonicEnv, harmCanvas);
+            
+            // Mise à jour métriques
+            updateMetrics();
+            
+            // Vérifier si terminé
+            if (traditionalEnv.reachedGoal && harmonicEnv.reachedGoal) {
+                simulationRunning = false;
+                showStatus('Simulation terminée ! Comparez les résultats.', 'complete');
+                return;
+            }
+            
+            // Continuer la boucle
+            const speed = 101 - parseInt(document.getElementById('simulationSpeed').value);
+            setTimeout(() => {
+                animationFrame = requestAnimationFrame(simulationLoop);
+            }, speed);
+        }
+        
+        // Contrôles
+        function startSimulation() {
+            if (!simulationRunning) {
+                resetSimulation();
+                simulationRunning = true;
+                simulationPaused = false;
+                showStatus('Simulation en cours...', 'running');
+                simulationLoop();
+            } else if (simulationPaused) {
+                simulationPaused = false;
+                showStatus('Simulation reprise', 'running');
+                simulationLoop();
+            }
+        }
+        
+        function pauseSimulation() {
+            simulationPaused = true;
+            showStatus('Simulation en pause', 'running');
+        }
+        
+        function resetSimulation() {
+            simulationRunning = false;
+            simulationPaused = false;
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+            
+            traditionalEnv = new Environment('traditional');
+            harmonicEnv = new Environment('harmonic');
+            
+            // Synchroniser les environnements
+            harmonicEnv.fragileZones = JSON.parse(JSON.stringify(traditionalEnv.fragileZones));
+            harmonicEnv.otherAgents = JSON.parse(JSON.stringify(traditionalEnv.otherAgents));
+            
+            drawEnvironment(tradCtx, traditionalEnv, tradCanvas);
+            drawEnvironment(harmCtx, harmonicEnv, harmCanvas);
+            updateMetrics();
+            
+            document.getElementById('statusMessage').style.display = 'none';
+        }
+        
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message status-${type}`;
+            statusEl.style.display = 'block';
+        }
+        
+        // Mise à jour des valeurs affichées
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', function() {
+                const valueSpan = document.getElementById(this.id + 'Value');
+                if (valueSpan) {
+                    valueSpan.textContent = this.value;
+                }
+            });
+        });
+        
+        // Ajout d'obstacles par clic
+        function addObstacle(canvas, env, event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / CELL_SIZE;
+            const y = (event.clientY - rect.top) / CELL_SIZE;
+            
+            env.obstacles.push({ x, y });
+            drawEnvironment(canvas === tradCanvas ? tradCtx : harmCtx, env, canvas);
+        }
+        
+        tradCanvas.addEventListener('click', (e) => {
+            if (traditionalEnv) addObstacle(tradCanvas, traditionalEnv, e);
+        });
+        
+        harmCanvas.addEventListener('click', (e) => {
+            if (harmonicEnv) addObstacle(harmCanvas, harmonicEnv, e);
+        });
+        
+        // Initialisation
+        resetSimulation();
+    </script>
+</body>
+</html>
