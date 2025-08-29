@@ -140,10 +140,10 @@ In our experiments across multiple environments:
 
 ## 📬 Contact
 
-- **Author**: [Your Name]
-- **Email**: [your.email@institution.edu]
-- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
-- **Lab**: [Your Lab Website](https://lab.university.edu)
+- **Author**: Rosny MASSAMBA
+- **Email**: rosnymassamba@gmail.com
+- **Twitter**: 
+- **Lab**: 
 
 ## 📜 License
 
