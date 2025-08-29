@@ -18,7 +18,7 @@ Traditional AI optimizes single objectives, often creating negative externalitie
 
 **[Try the Interactive Demo Here](https://samba360.github.io/harmonic-ai-demo/)**
 
-![Harmonic AI Demo Preview](preview.png)
+![Harmonic AI Demo Preview](preview1.png)
 ### Features
 
 - **Real-time parameter adjustment** - See immediate impact of weight changes
