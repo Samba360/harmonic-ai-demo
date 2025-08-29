@@ -1,7 +1,6 @@
 # 🤖 Harmonic AI - Interactive Demonstration
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Here-success)](https://samba360.github.io/harmonic-ai-demo/)
-[![Paper](https://img.shields.io/badge/Paper-arXiv-red)](https://arxiv.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## 🌟 Overview
